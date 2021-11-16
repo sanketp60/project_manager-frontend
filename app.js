@@ -2,7 +2,8 @@ const routes = [
     {path:'/project', component:project},
     {path:'/project/:id', component:project_discrete},
     {path:'/project/:projectid/task/:taskid', component:task_discrete},
-    {path:'/project/:projectid/task', component:task}
+    {path:'/project/:projectid/task', component:task},
+    {path:'/', component:index}
     
 ]
 

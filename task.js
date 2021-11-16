@@ -24,6 +24,7 @@ const task={template:`
         </tr>
         </tbody>
     </table>
+    <label v-if="!tasks.length" class="d-flex justify-content-center">There are no tasks to show</label>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModelLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">

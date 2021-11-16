@@ -16,6 +16,8 @@ const project={template:`
         </tr>
         </tbody>
     </table>
+    <label v-if="!projects.length" class="d-flex justify-content-center">There are no projects to show</label>
+    <br>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModelLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -69,6 +71,7 @@ methods:{
             this.projects=response.data;
         })
     },
+    
     addClick(){
         this.modalTitle="Add Project";
         this.ProjectName="";
@@ -79,7 +82,7 @@ methods:{
         axios.post(variables.API_URL+"projectlist/", {
             ProjectName:this.ProjectName,
             ProjectDescription:this.ProjectDescription,
-            ProjectDuration:this.ProjectDuration
+            ProjectDuration:this.ProjectDuration,
         })
         .then((response)=>{
             this.refreshData();
@@ -87,6 +90,9 @@ methods:{
             this.ProjectName="";
             this.ProjectDescription="";
             this.ProjectDuration="";
+        })
+        .catch(error => {
+            console.log(error.response)
         })
     }
 },

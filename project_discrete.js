@@ -56,11 +56,6 @@ const project_discrete={template:`
                         <span class="input-group-text">Project Duration</span>
                         <input type="number" min="1" class="form-control" v-model="ProjectDuration">
                     </div>  
-                    <div class="p-2 w-50 bd-highlight">
-                        <img width="250px" height="250px"
-                            :src="project.ProjectAvatar"/>
-                        <input class="m-2" type="file" @change="imageUpload">
-                    </div>
                     <button type="button" @click="updateClick()" class="btn btn-primary">
                     Update
                     </button>
@@ -125,16 +120,6 @@ const project_discrete={template:`
                 alert("Project deleted");
                 this.$router.push('/project/');
             })
-        },
-        imageUpload(event){
-            let formData=new FormData();
-            formData.append('file',event.target.files[0]);
-            axios.post(
-                variables.API_URL+"employee/savefile",
-                formData)
-                .then((response)=>{
-                    this.PhotoFileName=response.data;
-                });
         }
     },
     mounted:function(){
