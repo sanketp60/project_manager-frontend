@@ -11,7 +11,8 @@ const project_discrete={template:`
     <h3>Project ID: {{ project.ProjectID }} </h3> 
     <h2>Project Name: {{ project.ProjectName }} </h2>
 
-    <h2>Project Avatar: <br> <img width="250px" height="250px" :src="project.ProjectAvatar"/> </h2>
+    <h2 v-if="project.ProjectAvatar">Project Avatar: <br> <img width="250px" height="250px" :src="project.ProjectAvatar"/> </h2>
+    <h2 v-if="!project.ProjectAvatar">Project Avatar: <br> <img width="250px" height="250px" src="/static/default_avatar.png"/> </h2>
     <h2>Project Description: <pre>{{ project.ProjectDescription }}</pre></h2>
     <h2>Project Duration: {{ project.ProjectDuration }} month(s)</h2>
     <button type="button"
