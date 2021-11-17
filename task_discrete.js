@@ -49,7 +49,7 @@ const task_discrete={template:`
                     <div class="input-group mb-3">
                         <span class="input-group-text">Task End Date</span>
                         <input type="date" class="form-control" v-model="TaskEndDate">
-                    </div>  
+                    </div>   
                     <button type="button" @click="updateClick()" class="btn btn-primary">
                     Update
                     </button>
@@ -67,7 +67,7 @@ const task_discrete={template:`
             TaskName:"",
             TaskDescription:"",
             TaskStartDate:"",
-            TaskEndDate:""
+            TaskEndDate:"",
         }
     },
     methods:{
@@ -101,6 +101,9 @@ const task_discrete={template:`
                 this.refreshData();
                 alert("Task updated");
             })
+            .catch(error=>{
+                alert(error.response.data);
+          })
         },
         deleteClick(){
             if(!confirm("Are you sure?")){
