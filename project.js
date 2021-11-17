@@ -35,8 +35,12 @@ const project={template:`
                         <textarea class="form-control" v-model="ProjectDescription"></textarea>
                     </div>  
                     <div class="input-group mb-3">
-                        <span class="input-group-text">Project Duration</span>
+                        <span class="input-group-text">Project Duration (in months)</span>
                         <input type="text" class="form-control" v-model="ProjectDuration">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Project Avatar</span>
+                        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
                     </div>  
                     <button type="button" @click="createClick()" class="btn btn-primary">
                     Create
@@ -61,7 +65,8 @@ data(){
         modalTitle: "",
         ProjectName:"",
         ProjectDescription:"",
-        ProjectDuration:""
+        ProjectDuration:"",
+        file:''
     }
 },
 methods:{
@@ -78,12 +83,22 @@ methods:{
         this.ProjectDescription="";
         this.ProjectDuration="";
     },
+    handleFileUpload(){
+        this.file = this.$refs.file.files[0];
+      },
     createClick(){
-        axios.post(variables.API_URL+"projectlist/", {
-            ProjectName:this.ProjectName,
-            ProjectDescription:this.ProjectDescription,
-            ProjectDuration:this.ProjectDuration,
-        })
+        let formData = new FormData();
+        formData.append('ProjectName', this.ProjectName);
+        formData.append('ProjectDescription', this.ProjectDescription);
+        formData.append('ProjectDuration', this.ProjectDuration);
+        formData.append('ProjectAvatar', this.file);
+        axios.post(variables.API_URL+"projectlist/", 
+        formData,
+        {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+      })
         .then((response)=>{
             this.refreshData();
             alert("Project added");

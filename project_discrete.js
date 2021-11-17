@@ -53,8 +53,12 @@ const project_discrete={template:`
                         <textarea class="form-control" v-model="ProjectDescription"></textarea> 
                     </div>  
                     <div class="input-group mb-3">
-                        <span class="input-group-text">Project Duration</span>
+                        <span class="input-group-text">Project Duration (in months)</span>
                         <input type="number" min="1" class="form-control" v-model="ProjectDuration">
+                    </div>  
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Project Avatar</span>
+                        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
                     </div>  
                     <button type="button" @click="updateClick()" class="btn btn-primary">
                     Update
@@ -73,7 +77,8 @@ const project_discrete={template:`
             ProjectName:"",
             ProjectDescription:"",
             ProjectDuration:"",
-            ProjectAvatar:""
+            ProjectAvatar:"",
+            file:''
         }
     },
     methods:{
@@ -99,13 +104,22 @@ const project_discrete={template:`
         showtasksClick(){
             this.$router.push('/project/'+this.$route.params.id+'/task/'); 
         },
+        handleFileUpload(){
+            this.file = this.$refs.file.files[0];
+        },
         updateClick(){
-            axios.put(variables.API_URL+"projectdetail/"+this.$route.params.id,{
-                ProjectName:this.ProjectName,
-                ProjectDescription:this.ProjectDescription,
-                ProjectDuration:this.ProjectDuration,
-                ProjectAvatar:this.ProjectAvatar
-            })
+            let formData = new FormData();
+            formData.append('ProjectName', this.ProjectName);
+            formData.append('ProjectDescription', this.ProjectDescription);
+            formData.append('ProjectDuration', this.ProjectDuration);
+            formData.append('ProjectAvatar', this.file);
+            axios.put(variables.API_URL+"projectdetail/"+this.$route.params.id,
+            formData,
+        {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+      })
             .then((response)=>{
                 this.refreshData();
                 alert("Project updated");

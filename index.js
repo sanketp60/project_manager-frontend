@@ -1,9 +1,6 @@
 const index={template:`
 <div>
 <div class="alert alert-warning" role="alert">
-  Image upload functionality is not working in frontend as of now. It is working in backend, and can be tested via Postman.
-</div>
-<div class="alert alert-warning" role="alert">
   As the project backend is hosted on Heroku, the server puts the project into sleep after inactivity. Be patient while accessing frontend after a long time.
 </div>
 <h1 class="d-flex justify-content-center">Welcome to project manager</h1>
